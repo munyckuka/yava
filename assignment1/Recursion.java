@@ -1,7 +1,5 @@
 package assignment1;
 
-import java.util.Scanner;
-
 public class Recursion {
     public static int[] getMinMax(int a, int b) {
         int min = Math.min(a, b);

@@ -1,9 +1,12 @@
 package assignment1;
-class Person{
+public class Person{
     private String fullName;
     private int age; 
 
     public Person(){}
+    public Person(String fullName){
+        this.fullName = fullName;
+    }
     public Person(String fullName, int age){
         this.fullName = fullName;
         this.age = age;
@@ -13,5 +16,8 @@ class Person{
     }
     public void move(String fullName){
         System.out.println(fullName + " is moving");
+    }
+    public String getFullName(){
+        return fullName;
     }
 }
