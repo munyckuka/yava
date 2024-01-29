@@ -1,5 +1,5 @@
 package assignment1.com.company.proffesions;
-import assignment1.Person;
+import assignment2.Person;
 public class Driver extends Person{
     int drivingExperience;
     public Driver(String fullname, int drivingExperience){

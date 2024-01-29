@@ -1,4 +1,4 @@
-package assignment1;
+package assignment2;
 class Matrix{
     int[][] array;
     int r,c;

@@ -1,13 +1,13 @@
-package assignment1;
+package assignment2;
 
 public class libraryUser{
     public String name;
     int id;
     String faculty;
     String dateOfBirth;
-    String phone;
+    Phone phone;
     public libraryUser(){}
-    public libraryUser(String name, int id, String faculty, String dateOfBirth, String phone){
+    public libraryUser(String name, int id, String faculty, String dateOfBirth, Phone phone){
         this.name=name;
         this.id=id;
         this.faculty=faculty;

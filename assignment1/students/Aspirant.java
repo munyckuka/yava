@@ -1,5 +1,6 @@
-package assignment1;
-import assignment1.*;
+package assignment1.students;
+import assignment1.students.Student;
+
 public class Aspirant extends Student {
     private String scientificWork;
     public Aspirant(String firstName, String lastName, String group, double averageMark, String scientificWork) {

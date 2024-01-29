@@ -1,4 +1,4 @@
-package assignment1;
+package assignment1.students;
 
 public class Student {
     String firstName, lastName, group;
@@ -8,6 +8,9 @@ public class Student {
         this.lastName = newLName;
         this.group = newGroup;
         this.averageMark = newMark;
+    }
+    public String get_name(){
+        return firstName+' '+lastName;
     }
     public int getScholarShip(){
         return (averageMark == 5) ? 100 : 80;

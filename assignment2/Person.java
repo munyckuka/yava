@@ -1,4 +1,4 @@
-package assignment1;
+package assignment2;
 public class Person{
     private String fullName;
     private int age; 
@@ -14,8 +14,8 @@ public class Person{
     public String talk(String fullNamem, String text){
         return fullNamem + " said " + text;
     }
-    public void move(String fullName){
-        System.out.println(fullName + " is moving");
+    public String move(String fullName){
+        return fullName + " is moving";
     }
     public String getFullName(){
         return fullName;

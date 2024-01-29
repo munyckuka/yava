@@ -1,8 +1,8 @@
-package assignment1;
-class Phone {
-    private String number;
-    private String model;
-    private double weight;
+package assignment2;
+public class Phone {
+     String number;
+     String model;
+     double weight;
 
     
     public Phone(){}
@@ -15,16 +15,18 @@ class Phone {
             this(number, model);
             this.weight = weight;
         }
-    // functionality 
+    // functionality
+    public String getNumber(){
+        return number;
+    }
     public String receiveCall(String caller) {
         return caller+ " is ringing";
     }
     public String receiveCall(String caller, String callerNum){
-        return caller + "(" + callerNum + ") is calling";
+        return caller + " (" + callerNum + ") is calling";
     } 
-    public String getNumber(){
-        return number;
-    }
+
+
     public void sendMessage(String... numbers) {
         for (String number : numbers) {
             System.out.println("sended to " + number);
