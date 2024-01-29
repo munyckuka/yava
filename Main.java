@@ -1,20 +1,12 @@
 
 
-import java.util.Scanner;
-
-import assignment1.*;
-import assignment1.animals.*;
-import assignment1.com.company.details.Engine;
-import assignment1.com.company.proffesions.Driver;
-import assignment1.com.company.vehicles.Car;
-import assignment1.com.company.vehicles.SportCar;
-import assignment1.shapes.Circle;
-import assignment1.shapes.Square;
-import assignment1.students.*;
 import assignment2.Book;
 import assignment2.Person;
 import assignment2.Phone;
 import assignment2.libraryUser;
+import assignment2.shapes.Circle;
+import assignment2.shapes.Rectangle;
+import assignment2.shapes.Triangle;
 
 public class Main {
     public static void main(String args[]){
@@ -45,7 +37,16 @@ public class Main {
         Book book2 = new Book("Harry Potter and the Philosopher's Stone","J.K. Rowling");
         libraryUser user1 = new libraryUser("A. Alish", 1, "SE", "2000", phone[1]);
         user1.returnBook(user1.name, book1, book2);
-        // recursion with input
+
+        // shape with interface
+        System.out.println();
+        Circle circle = new Circle(2);
+        Rectangle rectangle = new Rectangle(2,3);
+        Triangle triangle = new Triangle(1,2,3);
+        System.out.println(circle.calculateArea() + " " + circle.calculatePerimeter());
+        System.out.println(rectangle.calculateArea() + " " + rectangle.calculatePerimeter());
+        System.out.println(triangle.calculateArea() + " " + triangle.calculatePerimeter());
+
 
 /*
         Recursion recur = new Recursion();

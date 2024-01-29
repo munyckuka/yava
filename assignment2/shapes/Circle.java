@@ -1,6 +1,6 @@
-package assignment1.shapes;
+package assignment2.shapes;
 
-public class Circle extends Shape{
+public class Circle implements Shape{
     int radius;
     final int pi = 3;
     public Circle(int radius){
@@ -9,5 +9,10 @@ public class Circle extends Shape{
     @Override
     public String calculateArea(){
         return "Area of circle = " + radius*radius*2*pi;
+    }
+
+    @Override
+    public String calculatePerimeter() {
+        return "Perimeter of circle = " + 2*pi*radius;
     }
 }
