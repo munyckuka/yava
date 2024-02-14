@@ -1,92 +1,76 @@
 
 
-import assignment2.Book;
-import assignment2.Person;
-import assignment2.Phone;
-import assignment2.libraryUser;
-import assignment2.shapes.Circle;
-import assignment2.shapes.Rectangle;
-import assignment2.shapes.Triangle;
+
+import Library.dao.BookDao;
+import Library.model.Book;
+import Library.service.BookService;
+
+import java.sql.*;
+import java.util.List;
+import java.util.stream.Collectors;
 
 public class Main {
-    public static void main(String args[]){
-//        Person
-        Person John = new Person("John Doe", 121);
-        Person nn = new Person();
-        //Phone
-        Phone phone[] = new Phone[4];
-        phone[0] = new Phone();
-        phone[1] = new Phone("123123", "Grusha");
-        phone[2] = new Phone("890890", "Panana", 8.8);
-        phone[3] = new Phone("567765", "Astro");
-//      get phones numbers and append them to array, then send messages to phones in array
-        String phoneNumbers[] = new String[4];
-        int i = 0;
-        for (Phone tel : phone){
-            System.out.println(tel.getNumber());
-            phoneNumbers[i]=tel.getNumber();
-            i++;
+    public static void main(String args[]) {
+        String connectionUrl = "jdbc:postgresql://localhost:1234/Library";
+        String username = "postgres";
+        String password = "1234";
+        Connection con = null;
+
+        try{
+            Class.forName("org.postgresql.Driver");
+            con = DriverManager.getConnection(connectionUrl, "postgres", "1234");
+
+//            BOOKS
+//            connecting to database
+            BookDao bookDao = new BookDao(connectionUrl, username, password);
+            BookService bookService = new BookService(bookDao);
+//      printing all books
+            System.out.println("All books: #print 1");
+            List<Book> allBooks = bookService.getAllBooks();
+            for(Book book : allBooks){
+                System.out.println(book.getId()+". "+book.getTitle()+" - "+book.getAuthor());
+            }
+//            create list of titles for future use
+            List<String>titles = allBooks.stream().map(Book::getTitle).toList();
+//      Adding book
+            Book novel = new Book("Wuthering Heights", "Emily Bronte");
+            String newBookTitle = novel.getTitle();
+//            if book exists in library, add +1 to amount of book. Otherwise, add new book to library
+
+            if (titles.contains(newBookTitle)) {
+                bookService.updateBookAmount(novel);
+            }
+            else bookService.addBook(novel);
+//      Changing books title and author
+            int novelId = bookService.getId(novel);
+//            System.out.println(novelId);
+            bookService.updateBook(novelId, "NONE", "Emily Bronte");
+
+//      printing all books
+            System.out.println("All books: #print 1");
+            allBooks = bookService.getAllBooks();
+            for(Book book : allBooks){
+                System.out.println(book.getId()+". "+book.getTitle()+" - "+book.getAuthor());
+            }
+//      Delete row (book)
+            bookService.deleteBook(novelId);
+//      printing all books
+            System.out.println("All books: #print 1");
+            allBooks = bookService.getAllBooks();
+            for(Book book : allBooks){
+                System.out.println(book.getId()+". "+book.getTitle()+" - "+book.getAuthor());
+            }
+        } catch (Exception e){
+            System.out.println(e);
+        } finally {
+            try{
+                con.close();
+            }catch (SQLException throwables){
+                throwables.printStackTrace();
+            }
         }
-        phone[1].sendMessage(phoneNumbers);
-//        Call by person joe from phone[2]
-        System.out.println(phone[0].receiveCall(John.getFullName(), phone[2].getNumber()));
-
-        // library and book
-        System.out.println();
-        Book book1 = new Book("The Little Prince", "Antoine de Saint Exupéry");
-        Book book2 = new Book("Harry Potter and the Philosopher's Stone","J.K. Rowling");
-        libraryUser user1 = new libraryUser("A. Alish", 1, "SE", "2000", phone[1]);
-        user1.returnBook(user1.name, book1, book2);
-
-        // shape with interface
-        System.out.println();
-        Circle circle = new Circle(2);
-        Rectangle rectangle = new Rectangle(2,3);
-        Triangle triangle = new Triangle(1,2,3);
-        System.out.println(circle.calculateArea() + " " + circle.calculatePerimeter());
-        System.out.println(rectangle.calculateArea() + " " + rectangle.calculatePerimeter());
-        System.out.println(triangle.calculateArea() + " " + triangle.calculatePerimeter());
-
-
-/*
-        Recursion recur = new Recursion();
-        Scanner scanner = new Scanner(System.in);
-        int a = scanner.nextInt();        
-        int b = scanner.nextInt();
-        scanner.close();
-        
-        System.err.println(recur.print(a, b));
-
-        // inheritance
-        Student[] students = new Student[6];
-        students[0] = new Student("Johns", "Snow", "Math", 2);
-        students [1] = new Student("Johan", "Kir", "Math", 5);
-        students[2] = new Aspirant("Jane", "Dope", "Math", 3.8, "karate");
-        students[3] = new Graduate("John", "Doe", "Politics", 3.5, "Egov");
-        students[4] = new Senior("John", "Silverhand", "shooting", 5);
-        students[5] = new Undergraduate("John", "Cap", "P.E", 3.5, "Pulling");
-        for (Student kid : students){
-            System.out.println(kid.get_name());
-        }
-        System.out.println();
-        //com.company
-        Driver driver = new Driver("Aleg Olgae", 10);
-        Engine engine = new Engine(2, "horse powers");
-        Car car = new Car("Konya", "koryto", 5.5, driver, engine);
-        System.out.println(car.toString());
-        SportCar sportCar = new SportCar("horsing", "fast", 11.11, driver, engine, 60);
-        System.err.println(sportCar.toString());
-
-        // animals
-        Animal[] animals = new Animal[3];
-        animals[0] = new Cat("fish", "LA");
-        animals[1] = new Dog("bark", "Bark Land");
-        animals[2] = new Horse("Grass", "Beshparmak");
-        
-        for (Animal animal : animals){
-            System.out.println(Veterinary.treatAnimal(animal));
-        }
-
-*/
     }
 }
+
+
+
