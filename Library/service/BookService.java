@@ -17,7 +17,9 @@ public class BookService {
     public List<Book> getAllBooks() {
         return bookDao.getAllBooks();
     }
-
+    public String getBookById(int id){
+        return bookDao.getBookById(id);
+    }
 
     public void addBook(Book book) {
         bookDao.addBook(book);

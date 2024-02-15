@@ -6,6 +6,7 @@ import java.sql.SQLException;
 import java.time.LocalDate;
 
 public class BookBorrowing {
+    private int id;
     private int user_id;
     private int book_id;
     private LocalDate borrow_date;
@@ -17,7 +18,31 @@ public class BookBorrowing {
         this.borrow_date = borrow_date;
         this.return_date = return_date;
     }
-    public int getUserId(){
+    public BookBorrowing(int user_id, int book_id, LocalDate borrow_date){
+        this.book_id = book_id;
+        this.user_id = user_id;
+        this.borrow_date = borrow_date;
+    }
+    public BookBorrowing(int id, int user_id, int book_id, LocalDate borrow_date){
+        this.id = id;
+        this.book_id = book_id;
+        this.user_id = user_id;
+        this.borrow_date = borrow_date;
+    }
+
+
+
+    public BookBorrowing(int id, int user_id, int book_id, LocalDate borrow_date, LocalDate return_date){
+        this.id = id;
+        this.book_id = book_id;
+        this.user_id = user_id;
+        this.borrow_date = borrow_date;
+        this.return_date = return_date;
+    }
+    public int getId() {
+        return id;
+    }
+    public int getUser_Id(){
         return user_id;
     }
     public int getBook_id(){

@@ -20,18 +20,33 @@ public class UserDao {
     private Connection getConnection() throws SQLException {
         return DriverManager.getConnection(url, username, password);
     }
-    public String getUsername(User user){
-        String query = "SELECT username FROM Users WHERE email = ?";
+    public int getUserId(User user){
+        String query = "SELECT id FROM Users WHERE username = ? AND email = ?";
         try(Connection connection = getConnection();
             PreparedStatement preparedStatement = connection.prepareStatement(query)){
-            preparedStatement.setString(1, user.getEmail());
+            preparedStatement.setString(1, user.getUsername());
+            preparedStatement.setString(2, user.getEmail());
             ResultSet resultSet = preparedStatement.executeQuery();
-            if (resultSet.next()) {
-                return resultSet.getString("username");
-            }else return "NOT FOUND";
+
+            if (resultSet.next())    return resultSet.getInt("id");
+            else return -1;
         } catch (SQLException e){
             e.printStackTrace();
-            return "ERROR";
+            return -1;
+        }
+    }
+    public String getUserNameById(int id){
+        String query = "SELECT username FROM Users WHERE id = ?";
+        try(Connection connection = getConnection();
+            PreparedStatement preparedStatement = connection.prepareStatement(query)){
+            preparedStatement.setInt(1, id);
+            ResultSet resultSet = preparedStatement.executeQuery();
+
+            if (resultSet.next())    return resultSet.getString("username");
+            else return "NONE";
+        } catch (SQLException e){
+            e.printStackTrace();
+            return "NONE";
         }
     }
 
@@ -50,7 +65,7 @@ public class UserDao {
                 int id = resultSet.getInt("id");
                 String username = resultSet.getString("username");
                 String email = resultSet.getString("email");
-                User user = new User(username, email);
+                User user = new User(id, username, email);
                 users.add(user);
             }
         } catch (SQLException e){
@@ -58,7 +73,17 @@ public class UserDao {
         }
         return users;
     }
-
+    public void addUser(User user){
+        String query = "INSERT INTO Users (username, email) VALUES (?, ?)";
+        try (Connection connection = getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(query)) {
+            preparedStatement.setString(1, user.getUsername());
+            preparedStatement.setString(2,user.getEmail());
+            preparedStatement.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
 
     public void updateUser(int id, String username, String email){
         String query = "UPDATE Users SET username = ? , email = ? where id = ?";

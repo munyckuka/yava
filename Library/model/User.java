@@ -9,6 +9,11 @@ public class User {
         this.username = username;
         this.email = email;
     }
+    public User(int id, String username, String email){
+        this.username = username;
+        this.id = id;
+        this.email = email;
+    }
 //    get/set methods
 
     public int getId() {

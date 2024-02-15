@@ -47,6 +47,20 @@ public class BookDao {
 
 
     }
+    public String getBookById(int id){
+        String query = "SELECT title, author FROM Books WHERE id = ?";
+        try(Connection connection = getConnection();
+            PreparedStatement preparedStatement = connection.prepareStatement(query)){
+            preparedStatement.setInt(1, id);
+            ResultSet resultSet = preparedStatement.executeQuery();
+
+            if (resultSet.next())    return resultSet.getString("title")+" - "+resultSet.getString("author");
+            else return "NONE";
+        } catch (SQLException e){
+            e.printStackTrace();
+            return "NONE";
+        }
+    }
 
     // Method to add a book to the database
     public void addBook(Book book) {
